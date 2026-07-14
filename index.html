@@ -25,86 +25,17 @@ nav {
     position: relative;
 }
 
-/* Logo container */
-.logo{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
+/* Logo */
+nav .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-/* Button */
-.logo-btn{
-    background:linear-gradient(to bottom,#ffffff,#ececec);
-    border:1px solid #bdbdbd;
-    border-radius:12px;
-    padding:8px 14px;
-
-    cursor:pointer;
-
-    /* 3D effect */
-    box-shadow:
-        0 3px 6px rgba(0,0,0,.25),
-        inset 0 1px 0 rgba(255,255,255,.9);
-
-    transition:.2s;
+nav .logo img {
+    height: 45px; /* adjust size as needed */
+    width: auto;
 }
-
-/* Logo image */
-.logo-btn img{
-    height:45px;
-    display:block;
-}
-
-/* Hover */
-.logo-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:
-        0 6px 12px rgba(0,0,0,.3),
-        inset 0 1px 0 rgba(255,255,255,.95);
-}
-
-/* Pressed */
-.logo-btn:active{
-    transform:translateY(1px);
-    box-shadow:
-        inset 0 2px 5px rgba(0,0,0,.25);
-}
-
-/* Dropdown menu */
-.dropdown-content{
-    display:none;
-    position:absolute;
-    top:100%;
-    left:50%;
-    transform:translateX(-50%);
-    min-width:220px;
-
-    background:white;
-    border-radius:10px;
-    margin-top:8px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.25);
-
-    overflow:hidden;
-    z-index:1000;
-}
-
-.dropdown-content a{
-    display:block;
-    padding:14px 20px;
-    text-decoration:none;
-    color:#333;
-}
-
-.dropdown-content a:hover{
-    background:#f2f2f2;
-}
-
-/* Show menu on hover */
-.dropdown:hover .dropdown-content{
-    display:block;
-}
-
 
     nav a {
         margin-right: 20px;
@@ -289,19 +220,8 @@ nav {
         <a href="matholym.html">Math Olympiad Training</a>
     </div>
 
-    <div class="logo dropdown">
-
-        <button class="logo-btn">
-            <img src="logo_3.png" alt="Logo">
-        </button>
-
-        <div class="dropdown-content">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="matholym.html">Math Olympiad</a>
-            <a href="contact_page.html">Contributors</a>
-        </div>
-
+    <div class="logo">
+        <a href="index.html"><img src="logo_2.png" alt="Logo" width="7cm"></a>
     </div>
 
     <div class="right">
@@ -370,4 +290,355 @@ Proliferating mathematics
 
 
 
+
+
+Your HTML and CSS are clean and should work well. I do have a few suggestions that would make the site look more professional and behave better on different devices.
+1. The logo width is conflicting
+
+You have
+
+<img src="logo_2.png" alt="Logo" width="7cm">
+
+but your CSS already specifies
+
+nav .logo img {
+    height: 45px;
+    width: auto;
+}
+
+The HTML width="7cm" overrides the natural sizing and is not suitable for web pages.
+
+Instead use
+
+<img src="logo_2.png" alt="Providence Mathematical Initiative Logo">
+
+and let CSS control the size.
+2. Use a maximum page width
+
+Currently everything stretches across very wide monitors.
+
+Wrap the main content in
+
+<div class="container">
+
+    <!-- title -->
+
+    <!-- sections -->
+
+</div>
+
+CSS
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+This makes the site much more elegant.
+3. Improve card readability
+
+Sometimes the white text will disappear against bright images.
+
+Add an overlay.
+
+.card{
+    position:relative;
+    overflow:hidden;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.35);
+}
+
+.card > *{
+    position:relative;
+    z-index:1;
+}
+
+This is one of the biggest visual improvements you can make.
+4. Make
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Providence Mathematical Initiative</title>
+
+
+
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, serif;
+        background: #f4f4f4;
+        color: #111;
+    }
+
+    /* NAVIGATION BAR */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+
+/* Logo */
+nav .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+nav .logo img {
+    height: 45px; /* adjust size as needed */
+    width: auto;
+}
+
+    nav a {
+        margin-right: 20px;
+        text-decoration: none;
+        color: #333;
+        font-size: 18px;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    /* TITLE */
+    .title {
+        text-align: center;
+        padding: 40px 0 20px;
+        font-size: 30px;
+        font-weight: bold;
+        font-family: "Helvetica";
+    }
+
+
+    /* SECTION TITLE */
+    .section-title {
+        font-size: 25px;
+        margin-left: 40px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-family: "Helvetica";
+    }
+
+
+    .description {
+        text-align: center;
+        padding: 40px 0 20px;
+        margin-left: 30px;
+        margin-right: 30px;
+        font-size: 20px;
+    }
+
+    /* CARD GRID */
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 0 40px 60px;
+    }
+
+    .card-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .card {
+        position: relative;
+        height: 250px;
+        border-radius: 8px;
+        overflow: hidden;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 20px;
+        font-size: 22px;
+        font-weight: bold;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+        opacity: 0.9;
+        cursor: pointer;
+    }
+
+    .card small {
+        font-size: 16px;
+        margin-top: 8px;
+        font-weight: normal;
+    }
+
+    /* Background placeholders */
+    .bg1 { background: url('virus_edited.jpg') center/cover; }
+    .bg2 { background: url('bbe_2d.png') center/cover; }
+    .bg3 { background: url('brain2.jpg') center/cover; }
+
+    /* ===========================
+   MOBILE & TABLET RESPONSIVE
+   =========================== */
+
+/* For tablets and small laptops */
+@media (max-width: 992px) {
+    nav {
+        padding: 15px 20px;
+    }
+    .cards {
+        grid-template-columns: repeat(2, 1fr); 
+        padding: 0 20px 40px;
+    }
+}
+
+/* For mobile phones */
+@media (max-width: 600px) {
+
+    /* NAVIGATION becomes stacked */
+    nav {
+        flex-direction: column;
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    nav .left, 
+    nav .right {
+        display: flex;
+        gap: 15px;
+        margin: 5px 0;
+    }
+
+    nav .logo {
+        position: static;
+        transform: none;
+        margin: 10px 0;
+    }
+
+    nav a {
+        font-size: 16px;
+        margin-right: 0;
+    }
+
+    /* TITLE */
+    .title {
+        padding: 25px 0 10px;
+        font-size: 24px;
+        margin: 0 10px;
+    }
+
+    /* Paragraph description */
+    .description {
+        margin: 0 15px;
+        font-size: 14px;
+    }
+
+    /* Section title spacing */
+    .section-title {
+        font-size: 24px;
+        margin-left: 15px;
+        margin-top: 30px;
+    }
+
+    /* CARDS become 1-column */
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 15px 40px;
+    }
+
+    .card {
+        height: 180px;
+        font-size: 18px;
+        padding: 15px;
+    }
+
+    .card small {
+        font-size: 14px;
+    }
+
+    /* Video container full width */
+    .video-container {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="left">
+        <a href="about.html">About</a>
+        <a href="matholym.html">Math Olympiad Training</a>
+    </div>
+
+    <div class="logo">
+        <a href="index.html"><img src="logo_3.png" alt="Logo" width="7cm"></a>
+    </div>
+
+    <div class="right">
+        <a href="#">News</a>
+        <a href="contact_page.html">Contributors</a>
+    </div>
+</nav>
+
+<!-- TITLE -->
+<div class="title">
+    Providence Mathematical Initiative
+</div>
+
+
+<!-- 
+    <div class="description">
+Proliferating mathematics
+</div>
+-->
+    
+<!-- SECTION -->
+<div class="section-title">Our investigation</div>
+
+<!-- CARDS -->
+<div class="cards">
+
+    <a class="card-link" href="idm.html">
+        <div class="card bg1">
+            Infectious Disease Modelling
+            <small>Mathematical modelling of infectious diseases.</small>
+        </div>
+    </a>
+
+    <a class="card-link" href="pde.html">
+        <div class="card bg2">
+            PDEs and Applications 
+            <small>Mathematical Modelling using Partial Differential Equations.</small>
+        </div>
+    </a>
+
+    
+    <a class="card-link" href="#">
+        <div class="card bg3">
+            Deep Learning
+            <small>Applications of Neural Networks.</small>
+        </div>
+    </a>
+
+
+</div>
+
+</body>
+</html>
 
